@@ -1,0 +1,29 @@
+<span class="TabPromotionIndex">
+	<span class="Toolbar">
+		<a href="#" onclick="tab_handler.goto('/tab_promotion/new');">เพิ่มโปรโมชั่นใหม่</a>
+	</span>
+	<span class="List">
+		<%
+			@promotions.each { |promotion|
+		%>
+			<span class="Promotion">
+				<span class="Name"><%=promotion.name%></span>
+				<span class="StartDate"><%=promotion.start_date.to_thai_date%></span>
+				<span class="EndDate"><%=promotion.end_date.to_thai_date%></span>
+				<span class="Count"><%=promotion.collected_count%>/<%=promotion.total%></span>
+				<span class="Toolbar">
+					<a href="#" onclick="tab_handler.goto('/tab_promotion/<%=promotion.id%>/edit');">Edit</a>
+					<a href="#" onclick="tab_handler.goto('/tab_promotion/<%=promotion.id%>');">View</a>
+					<span class="ActivateButton <%='Active' if promotion.is_active?%>" data-ref="<%=promotion.id%>"></span>
+				</span>
+			</span>
+		<%
+			}
+		%>
+	</span>
+</span>
+<script type="text/javascript">
+	tab_promotion_handler.init_list({
+		activate_buttons: $('.ActivateButton')
+	});
+</script>

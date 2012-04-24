@@ -1,0 +1,67 @@
+
+<span class="TabRestaurantNew">
+	<span class="Field">
+		<label for="location">ตำแหน่งของร้าน:</label>
+		<span class="MapCanvas"></span>
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="name">ชื่อร้าน:</label>
+		<input type="text" name="name_<%=Time.now.to_i%>" id="name" value="<%=@restaurant.name%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="logo">รูปสัญลักษณ์ของร้าน:</label>
+		<img class="LogoPreview" src="<%=@restaurant.get_image_path%>">
+		<span class="UploadButton" id="logo_upload_button"></span>
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="description">รายละเอียด:</label>
+		<textarea name="description_<%=Time.now.to_i%>" id="description"><%=@restaurant.description%></textarea>
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="telephone_number">เบอร์ติดต่อ:</label>
+		<input type="text" name="telephone_number_<%=Time.now.to_i%>" id="telephone_number" value="<%=@restaurant.telephone_number%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="website">เว็บไซต์:</label>
+		<input type="text" name="website_<%=Time.now.to_i%>" id="website" value="<%=@restaurant.website%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="SubmitPanel">
+		<span class="SubmitButton">สร้างร้านอาหาร</span>
+		<span class="Explanation"></span>
+	</span>
+</span>
+<script type="text/javascript">
+
+	$(function() {
+		tab_restaurant.init_form({
+			<%
+				if !@restaurant.new_record?
+			%>
+				latitude: <%=@restaurant.location[0]%>,
+				longitude: <%=@restaurant.location[1]%>,
+			<%
+				else
+			%>
+				latitude: null,
+				longitude: null,
+			<%
+				end
+			%>
+			map_canvas: $('.TabRestaurantNew .MapCanvas')[0],
+			name: $('.TabRestaurantNew #name')[0],
+			logo_preview: $('.TabRestaurantNew .LogoPreview')[0],
+			logo_upload_button: $('.TabRestaurantNew #logo_upload_button')[0],
+			description: $('.TabRestaurantNew #description')[0],
+			telephone_number: $('.TabRestaurantNew #telephone_number')[0],
+			website: $('.TabRestaurantNew #website')[0],
+			submit_button: $('.TabRestaurantNew .SubmitButton')[0],
+			summary_panel: $('.TabRestaurantNew .SubmitButton').next('.Explanation')[0],
+		});
+	});
+</script>

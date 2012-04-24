@@ -1,0 +1,110 @@
+// Place all the styles related to the tab controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.Tab {
+	
+	display: block;
+	width: 790px;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	.Header {
+		display: block;
+	}
+
+	.Body {
+		display: block;
+	}
+
+	.Footer {
+		display: block;
+
+		margin-top: 10px;
+		padding-top: 10px;
+
+		border-top: 1px solid #CCCCCC;
+
+		text-align: center;
+
+		color: #999999;
+
+		font-size: 14px;
+		text-decoration: none;
+
+		a {
+			color: #999999;
+
+			font-size: 14px;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+}
+
+
+.TabIndex {
+
+	display: block;
+
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+
+	.CurrentPromotion {
+
+		display: block;
+
+		> * {
+			vertical-align: top;
+		}
+
+		.Thumbnail {
+
+			display: inline-block;
+			width: 100px;
+
+			img {
+				width: 100px;
+				height: 100px;
+			}
+
+		}
+	
+		.Detail {
+
+			display: inline-block;
+			width: 480px;
+			margin-left: 10px;
+
+			> * {
+				display: block;
+				margin-top: 10px;
+			}
+
+			.Name {
+				font-weight: bold;
+			}
+
+			.Description {
+			}
+
+			.Restaurant {
+				font-weight: bold;
+			}
+
+			.Quota {
+			}
+
+			.ExpirationDate {
+			}
+
+		}
+	}
+
+}

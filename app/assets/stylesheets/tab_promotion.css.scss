@@ -1,0 +1,72 @@
+// Place all the styles related to the tab_promotion controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.TabPromotionIndex {
+
+	display: block;
+	
+	 > .Toolbar {
+
+		display: block;
+		text-align: center;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+
+		border-bottom: 1px solid #CCCCCC;
+
+	}
+
+	.List {
+
+		display: block;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
+
+		.Promotion {
+
+			display: block;
+			margin-bottom: 10px;
+
+			> * {
+				margin-right: 10px;
+			}
+
+			.Name {
+				display: inline-block;
+			}
+
+			.StartDate {
+				display: inline-block;
+			}
+
+			.EndDate {
+				display: inline-block;
+			}
+
+			.Toolbar {
+				display: inline-block;
+
+				a {
+					display: inline-block;
+				}
+
+				.ActivateButton {
+					width: 16px;
+					height: 16px;
+					display: inline-block;
+
+					background-color: red;
+
+					cursor: pointer;
+
+					&.Active {
+						background-color: green !important;
+					}
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,47 @@
+<span class="TabPromotionShow">
+	<span class="PromotionBlock">
+		<span class="Image">
+			<img src="<%=@promotion.get_image_path%>">
+		</span>
+		<span class="Detail">
+			<span class="Name">
+				<%=@promotion.name%>
+			</span>
+			<span class="Description">
+				<%=@promotion.description%>
+			</span>
+			<span class="Date">
+				<%=@promotion.start_date.to_thai_date%>
+				- <%=@promotion.end_date.to_thai_date%>
+			</span>
+			<span class="Count">
+				<%=@promotion.collected_count%>/<%=@promotion.total%>
+			</span>
+		</span>
+	</span>
+	<span class="BadgeList">
+		<span class="Filter">
+			<a href="#" onclick="">All</a>
+			<a href="#" onclick="">Unused</a>
+			<a href="#" onclick="">Used</a>
+		</span>
+		<span class="List">
+			<%
+				@badges.each { |badge|
+			%>
+				<span class="Badge <%='Used' if badge.is_used?%>">
+					<span class="Number">
+						<%=badge.number%>
+					</span>
+					<span class="Toolbar">
+						<span class="ToggleUsageButton ">
+							Toggle Usage
+						</span>
+					</span>
+				</span>
+			<%
+				}
+			%>
+		</span>
+	</span>
+</span>

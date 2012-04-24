@@ -1,0 +1,62 @@
+<span class="TabPromotionNew">
+	<span class="Field">
+		<label for="name">ชื่อโปรโมชั่น:</label>
+		<input type="text" name="name_<%=Time.now.to_i%>" id="name" value="<%=@promotion.name%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="image">รูปโปรโมชั่น:</label>
+		<img class="ImagePreview" src="<%=@promotion.get_image_path%>">
+		<span class="UploadButton" id="image_upload_button"></span>
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="description">รายละเอียด:</label>
+		<textarea name="description_<%=Time.now.to_i%>" id="description"><%=@promotion.name%></textarea>
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="start_date">วันที่เริ่ม:</label>
+		<input type="text" name="start_date_<%=Time.now.to_i%>" id="start_date" value="<%=@promotion.start_date.strftime("%Y-%m-%d")%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="end_date">วันหมดอายุ:</label>
+		<input type="text" name="end_date_<%=Time.now.to_i%>" id="end_date" value="<%=@promotion.end_date.strftime("%Y-%m-%d")%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="Field">
+		<label for="total">จำนวนทั้งหมด:</label>
+		<input type="text" name="total_<%=Time.now.to_i%>" id="total" value="<%=@promotion.total%>">
+		<span class="Explanation"></span>
+	</span>
+	<span class="SubmitPanel">
+		<span class="SubmitButton">สร้างโปรโมชั่น</span>
+		<span class="Explanation"></span>
+	</span>
+</span>
+
+<script type="text/javascript">
+	tab_promotion_handler.init_form({
+		<%
+			if @promotion.new_record?
+		%>
+			promotion_id: null,
+		<%
+			else
+		%>
+			promotion_id: '<%=@promotion.id%>',
+		<%
+			end
+		%>
+		name: $('.TabPromotionNew #name')[0],
+		image_upload_button: $('.TabPromotionNew #image_upload_button')[0],
+		image_preview: $('.TabPromotionNew .ImagePreview')[0],
+		description: $('.TabPromotionNew #description')[0],
+		start_date: $('.TabPromotionNew #start_date')[0],
+		end_date: $('.TabPromotionNew #end_date')[0],
+		total: $('.TabPromotionNew #total')[0],
+		submit_button: $('.TabPromotionNew .SubmitButton')[0],
+		summary_panel: $('.TabPromotionNew .SubmitPanel .Explanation')[0]
+	});
+</script>

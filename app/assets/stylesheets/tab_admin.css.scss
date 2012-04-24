@@ -1,0 +1,94 @@
+// Place all the styles related to the tab_admin controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.TabAdmin {
+	
+	display: block;
+
+	.Restaurant {
+		display: block;
+		width: 500px;
+
+		padding: 10px 10px 10px 10px;
+
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 30px;
+
+		border: 5px solid #999999;
+
+		> * {
+			vertical-align: top;
+			display: inline-block;
+		}
+
+		.Map {
+
+			img {
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		.Logo {
+			img {
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		.Detail {
+
+			margin-left: 10px;
+
+			> * {
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.Name {
+				font-weight: bold;
+			}
+		}
+	}
+
+
+	.Promotion {
+		display: block;
+		width: 500px;
+
+		padding: 10px 10px 10px 10px;
+
+		margin-left: auto;
+		margin-right: auto;
+
+		border: 5px solid #999999;
+
+		> * {
+			vertical-align: top;
+			display: inline-block;
+		}
+
+		.Logo {
+			img {
+				width: 100px;
+				height: 100px;
+			}
+		}
+
+		.Detail {
+
+			margin-left: 10px;
+
+			> * {
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.Name {
+				font-weight: bold;
+			}
+		}
+	}
+}

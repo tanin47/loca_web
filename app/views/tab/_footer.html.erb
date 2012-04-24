@@ -1,0 +1,11 @@
+<a href="#" onclick="tab_handler.goto('/tab');">หน้าแรก</a>
+
+<%
+	if @member.is_page_admin?
+%>
+		| <a href="#" onclick="tab_handler.goto('/tab_admin');">หลังบ้าน</a>
+		| <a href="#" onclick="tab_handler.goto('/tab_restaurant');">จัดการร้านอาหาร</a>
+		| <a href="#" onclick="tab_handler.goto('/tab_promotion');">จัดการโปรโมชั่น</a>
+<%
+	end
+%>

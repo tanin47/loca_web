@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  	<%= (content_for?(:title) ? yield(:title) : "Loca").gsub(/\s+/," ").strip%> 
+  </title>
+  <script type="text/javascript">
+    var AUTH_TOKEN = "<%=form_authenticity_token%>";
+  </script>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "/loading_button/jquery.loading_button.js" %>
+  <%= javascript_include_tag "/ajax_uploader/ajax_uploader.js" %>
+  <%= csrf_meta_tags %> 
+  <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD6E8_9oSoNnEuWoOzjV-GtgjQQr-GinLA&sensor=true">
+  </script>
+</head>
+<body class="Tab">
+  <div id="fb-root"></div>
+  <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+  <script type="text/javascript" charset="utf-8">
+      FB.Canvas.setAutoResize();
+  </script>
+
+
+	<div class="Header">
+		<%= content_for?(:header) ? yield(:header) : (render :partial=>"tab/header") %>  	
+    </div>
+	<div class="Body">
+    	<%= content_for?(:frame) ? yield(:frame) : yield %>
+	</div>
+  <div class="Footer">
+  	<%= content_for?(:footer) ? yield(:footer) : (render :partial=>"tab/footer") %>  	
+  </div>  
+
+  <script type="text/javascript" src="https://connect.facebook.net/en_US/all.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    FB.init({
+      appId : '<%=APP_ID%>',
+      status : true, // check login status
+      cookie : true, // enable cookies to allow the server to access the session
+      xfbml : true // parse XFBML
+    });
+
+    FB.Canvas.setSize();
+  </script>
+</body>
+</html>

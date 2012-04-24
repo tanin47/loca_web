@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  	<%= (content_for?(:title) ? yield(:title) : "Loca").gsub(/\s+/," ").strip%> 
+  </title>
+  <script type="text/javascript">
+    var AUTH_TOKEN = "<%=form_authenticity_token%>";
+  </script>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "/loading_button/jquery.loading_button.js" %>
+  <%= csrf_meta_tags %>
+  <%= content_for?(:meta_tag) ? yield(:meta_tag) : (render :partial=>"home/meta_tag") %>  
+</head>
+<body>
+  <img src="/assets/logo.jpg" style="width: 1px;height:1px;display: none;">
+	<div id="header">
+		<%= content_for?(:header) ? yield(:header) : (render :partial=>"home/header") %>  	
+    </div>
+	<div id="body">
+    	<%= content_for?(:frame) ? yield(:frame) : yield %>
+	</div>
+  <div id="footer">
+  	<%= content_for?(:footer) ? yield(:footer) : (render :partial=>"home/footer") %>  	
+  </div>
+</body>
+</html>

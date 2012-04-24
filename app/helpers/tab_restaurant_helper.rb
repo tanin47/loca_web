@@ -1,0 +1,2 @@
+module TabRestaurantHelper
+end

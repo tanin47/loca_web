@@ -1,0 +1,2 @@
+class TabPromotionBadgeController < ApplicationController
+end
