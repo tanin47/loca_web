@@ -47,23 +47,30 @@ LocaWeb::Application.routes.draw do
   #   end
 
   match 'tab', :to => "tab#index"
-
   match 'tab_admin(/:action)', :controller => "tab_admin", :defaults => {:action => "index"}
+
 
   post 'temporary_file/image', :to => "temporary_file#image"
 
+
   post 'login', :to => "login#index"
+
+
+  get 'member/:id/badges', :to => "member#badges"
+
 
   get 'promotion', :to => "promotion#index"
   post 'promotion/:id/collect', :to => "promotion#collect"
   post 'promotion/:id/share', :to => "promotion#share"
   post 'promotion/:id/transfer', :to => "promotion#transfer"
 
+
   resources :tab_promotion
   post 'tab_promotion/:id/toggle', :to => "tab_promotion#toggle"
 
   
   resources :tab_restaurant
+  
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

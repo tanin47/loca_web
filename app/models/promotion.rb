@@ -18,7 +18,22 @@ class Promotion
     field :status, :type => String, :default => "OFF"
     field :created_date, :type => Time, :default => lambda { Time.now }
 
-    index [[ :location, Mongo::GEO2D ], [ :status, Mongo::DESCENDING ]]
+
+    attr_accessor :restaurant
+
+
+    def to_hash
+        { :id => self.id,
+          :name => self.name,
+          :description => self.description,
+          :thumbnail_url => self.image_path,
+          :restaurant_id => self.restaurant_id,
+          :start_date => self.start_date,
+          :end_date => self.end_date,
+          :collected_count => self.collected_count,
+          :total => self.total
+        }
+    end
 
 
     def self.get_active(restaurant_id)
@@ -32,7 +47,7 @@ class Promotion
 
 
     def get_image_url
-
+        "https://#{DOMAIN_NAME}#{self.get_image_path}"
     end
 
 
@@ -61,6 +76,24 @@ class Promotion
 
     def deactivate
         self.status = "OFF"
+    end
+
+    def get_badge(member)
+        return PromotionBadge.first(:conditions => { :promotion_id => self.id, :member_id => member.id})
+    end
+
+    def collect(member)
+
+        badge = PromotionBadge.first(:conditions => { :promotion_id => self.id, :member_id => member.id})
+
+        if !badge
+            badge = PromotionBadge.create(:conditions => { :promotion_id => self.id, 
+                                                            :member_id => member.id,
+                                                            :number => member.facebook_id.reverse})
+        end
+
+        return badge
+
     end
 
 end

@@ -13,7 +13,7 @@ module UniqueIdentity
       
         selected_chars = chars[rand(chars.size)]
         
-        token = self.class.name
+        token = "#{self.class.name}-"
         10.times { token << selected_chars[rand(selected_chars.size)] }
 
         self.class::Uuid.unsafely.create(:id=>token)

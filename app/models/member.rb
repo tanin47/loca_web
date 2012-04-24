@@ -11,6 +11,7 @@ class Member
 
 	field :facebook_id, :type=>String, :default => ""
     field :name, :type => String, :default => ""
+    field :access_token, :type => String, :default => ""
     field :owns_page_ids, :type => Array, :default => []
     field :cookies_salt, :type=>String, :default => ""
     field :is_admin, :type => Boolean, :default => false
