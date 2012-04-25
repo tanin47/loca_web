@@ -4,7 +4,10 @@
 
 var  tab_handler = {};
 
-tab_handler.goto = function(url) {
+tab_handler.goto = function(url, button) {
+
+	$('body > .Body').html('<img src="http://www.boonthavorn.com/3d/img_load/loading-gif-animation.gif" class="Loading">');
+
 	$.get(url, function(data) {
 		$('body > .Body').html(data);
 		FB.Canvas.setSize();

@@ -16,9 +16,16 @@ class TabController < ApplicationController
 	end
 
 
-	before_filter :verify_signed_request, :check_member
+	before_filter :check_for_tab_added, :verify_signed_request, :check_member
 
 	private
+	def check_for_tab_added
+		if params[:tabs_added]
+			redirect_to "/home/thank_you_for_adding"
+		end
+	end
+
+
 	def verify_signed_request
 
 		return if request.xhr?

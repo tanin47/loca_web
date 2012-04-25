@@ -21,9 +21,9 @@
 	</span>
 	<span class="BadgeList">
 		<span class="Filter">
-			<a href="#" onclick="">All</a>
-			<a href="#" onclick="">Unused</a>
-			<a href="#" onclick="">Used</a>
+			<a href="#" onclick="alert('ยังไม่ได้ทำนะจ้ะ :)');">All</a>
+			<a href="#" onclick="alert('อันนี้ยังไม่ได้ทำนะจ้ะ :)');">Unused</a>
+			<a href="#" onclick="alert('อันนี้ยังไม่ได้ทำจ้ะ :)');">Used</a>
 		</span>
 		<span class="List">
 			<%
@@ -34,7 +34,7 @@
 						<%=badge.number%>
 					</span>
 					<span class="Toolbar">
-						<span class="ToggleUsageButton ">
+						<span class="ToggleUsageButton" data-ref="<%=badge.id%>">
 							Toggle Usage
 						</span>
 					</span>
@@ -45,3 +45,8 @@
 		</span>
 	</span>
 </span>
+<script type="text/javascript">
+	tab_badge_handler.init_list({
+		usage_buttons: $('.BadgeList .ToggleUsageButton')
+	});
+</script>

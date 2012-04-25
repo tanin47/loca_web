@@ -12,18 +12,39 @@
 			<a href="#" onclick="tab_handler.goto('/tab_restaurant');">แก้ไขร้านอาหาร</a>
 		</span>
 	</span>
-	<span class="Promotion">
-		<span class="Logo">
-			<img src="">
+	<%
+		if @promotion
+	%>
+		<span class="Promotion">
+			<span class="Logo">
+				<img src="<%=@promotion.get_image_path%>">
+			</span>
+			<span class="Detail">
+				<span class="Name"><%=@promotion.name%></span>
+				<span class="Description">
+					<%=@promotion.description%>
+				</span>
+				<span class="Restaurant">
+					<%=@restaurant.name%>
+				</span>
+				<span class="Quota">
+					<%=@promotion.collected_count%> / <%=@promotion.total%>
+				</span>
+				<span class="Release">
+					ปล่อย <%=@promotion.start_date.to_thai_date%>
+				</span>
+				<span class="ExpirationDate">
+					หมดอายุ <%=@promotion.end_date.to_thai_date%>
+				</span>
+				<a href="#" onclick="tab_handler.goto('/tab_promotion/<%=@promotion.id%>/edit');">Edit</a>
+				<a href="#" onclick="tab_handler.goto('/tab_promotion/<%=@promotion.id%>');">View</a>
+			</span>
 		</span>
-		<span class="Detail">
-			<span class="Name">test</span>
-			<span class="Description">test</span>
-			<span class="Release">25 พฤษภาคม 2555</span>
-			<span class="ExpirationDate">30 มิถุนายน 2555</span>
-			<span class="Quota">เหลือ 50 เก็บไป 30</span>
-			<a href="#" onclick="tab_handler.goto('/tab_promotion/1234/edit');">แก้ไขโปรโมชั่น</a>
-			<a href="#" onclick="tab_handler.goto('/tab_promotion/1234/badge');">ดูรายชื่อ</a>
-		</span>
-	</span>
+	<%
+		else
+	%>
+		ไม่มีโปรโมชั่นที่กำลังใช้งาน
+	<%
+		end
+	%>
 </div>

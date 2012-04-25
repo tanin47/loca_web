@@ -74,8 +74,13 @@
 			.Badge {
 				display: block;
 
+				text-align: center;
+
 				&.Used {
-					text-decoration: line-through;
+
+					.Number {
+						text-decoration: line-through;
+					}
 				}
 
 				.Number {
@@ -88,8 +93,7 @@
 
 					.ToggleUsageButton {
 						border:1px solid #000000;
-
-
+						cursor: pointer;
 					}
 				}
 			}

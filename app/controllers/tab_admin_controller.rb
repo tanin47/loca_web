@@ -6,10 +6,8 @@ class TabAdminController < ApplicationController
 
 	def index
 
-		if !@restaurant
-			@restaurant = Restaurant.new
-			render "tab_restaurant/new"
-			return
+		if @restaurant
+			@promotion = Promotion.get_active(@restaurant.id)
 		end
 
 		@marker_pipe = ["color:red", "label:P", @restaurant.location.join(",")]
@@ -32,6 +30,12 @@ class TabAdminController < ApplicationController
 
 	def check_restaurant
 		@restaurant = Restaurant.first(:conditions => { :facebook_page_id => @member.facebook_page_id })
+
+		if !@restaurant
+			@restaurant = Restaurant.new
+			render "tab_restaurant/new"
+			return
+		end
 	end
 
 end

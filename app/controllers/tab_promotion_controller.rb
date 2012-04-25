@@ -9,7 +9,7 @@ class TabPromotionController < TabAdminController
 	def show
 		@promotion = Promotion.find(params[:id])
 
-		@badges = PromotionBadge.where(:promotion_id => @promotion).desc(:created_date).entries
+		@badges = PromotionBadge.where(:promotion_id => @promotion.id).desc(:created_date).entries
 	end
 
 

@@ -43,9 +43,9 @@ class FacebookConnector
                   :name => options[:name], 
                   :caption => options[:caption], 
                   :description => options[:description],
-                  :source => options[:source], 
-                  :place => options[:place], 
-                  :tags => options[:tags],
+                  # :source => options[:source], 
+                  # :place => options[:place], 
+                  # :tags => options[:tags],
                   :access_token => self.access_token}
     
     response = RestClient.post("https://graph.facebook.com/#{facebook_id}/feed", postData)
