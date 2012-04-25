@@ -5,7 +5,7 @@ set :domain, "46.137.213.161"
 require 'capistrano/ext/multistage'
 
 set :application, "loca"
-set :repository,  "git@github.com:tanin47/local_web.git"
+set :repository,  "git@github.com:tanin47/loca_web.git"
 
 set :use_sudo,    false
 set :scm,         "git"
