@@ -73,6 +73,8 @@ LocaWeb::Application.routes.draw do
   resources :tab_restaurant
   
 
+  get 'home/thank_you', :to => "home#thank_you"
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'
