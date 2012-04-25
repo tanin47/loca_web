@@ -11,10 +11,14 @@ class Member
 
 	field :facebook_id, :type=>String, :default => ""
     field :name, :type => String, :default => ""
+    field :point, :type => Integer, :default => 0
+
     field :access_token, :type => String, :default => ""
+
     field :owns_page_ids, :type => Array, :default => []
     field :cookies_salt, :type=>String, :default => ""
     field :is_admin, :type => Boolean, :default => false
+
     field :created_date, :type => Time, :default => lambda { Time.now.to_i }
 
     index [[ :facebook_id, Mongo::DESCENDING ]], :unique => true
@@ -23,12 +27,14 @@ class Member
     def to_hash
         { :id => self.id,
           :facebook_id => self.facebook_id,
-          :name => self.name
+          :name => self.name,
+          :point => self.point
         }
     end
 
 
     def self.create_or_get(facebook_id, page_id="0", is_page_admin=false)
+
         member = Member.first(:conditions => { :facebook_id => facebook_id })
 
         if !member

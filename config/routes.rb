@@ -62,7 +62,8 @@ LocaWeb::Application.routes.draw do
   get 'promotion', :to => "promotion#index"
   post 'promotion/:id/collect', :to => "promotion#collect"
   post 'promotion/:id/share', :to => "promotion#share"
-  post 'promotion/:id/transfer', :to => "promotion#transfer"
+  get 'promotion/:id', :to => "promotion#show"
+  post 'promotion_badge/:id/transfer', :to => "promotion_badge#transfer"
 
 
   resources :tab_promotion

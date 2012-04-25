@@ -4,17 +4,22 @@ class PromotionController < ApplicationController
 	def index
 
 	    radius = 0.1
+
 	     
 	    leftTop = [ params[:lat].to_f - radius, params[:lng].to_f - radius ]
 	    rightBottom = [ params[:lat].to_f + radius, params[:lng].to_f + radius ]
 	    
-	    restaurants = Restaurant.where(:location.within => { "$box" => [ leftTop, rightBottom ] }).entries
-	    
+	    restaurants = []
+	    if Rails.env.development?
+			restaurants = Restaurant.desc(:created_date).entries
+	    else
+	    	restaurants = Restaurant.where(:location.within => { "$box" => [ leftTop, rightBottom ] }).entries
+	    end
+
 	    restaurant_hash = {}
 	    restaurants.each { |r| restaurant_hash[r.id] = r }
 
-
-	    promotions = Promotion.where(:restaurant_id.in => restaurants.map { |r| r.id }).where(:status => "ON").entries
+	    promotions = Promotion.where(:restaurant_id.in => restaurants.map { |r| r.id }).where(:status => "ON").where(:start_date.lte => Time.now.to_date).entries
 	    promotions.each { |p| p.restaurant = restaurant_hash[p.restaurant_id] }
 	    promotions = promotions.sort { |a, b| 
 	      
@@ -31,9 +36,9 @@ class PromotionController < ApplicationController
 		end
 	    
 	    render :json => {:ok => true,
-	                      :restaurants => restaurants.map { |restaurant| restaurant.to_hash },
-	                      :promotions => promotions.map { |promotion| promotion.to_hash },
-	                      :badges => badges.map { |b| b.to_hash }
+	                     	:restaurants => restaurants.map { |restaurant| restaurant.to_hash },
+	                     	:promotions => promotions.map { |promotion| promotion.to_hash },
+	                     	:badges => badges.map { |b| b.to_hash }
 	                    }
 	end
 
@@ -43,6 +48,12 @@ class PromotionController < ApplicationController
 		member = Member.find(params[:member_id])
 		promotion = Promotion.find(params[:id])
 
+		if !promotion.collectable?
+			render :json => { :ok => false,
+								:error_message => promotion.incollectable_error_message }
+			return
+		end
+
 		badge = promotion.collect(member)
 
 		restaurant = Restaurant.find(promotion.restaurant_id)
@@ -50,7 +61,8 @@ class PromotionController < ApplicationController
 		render :json => { :ok => true,
 							:restaurant => restaurant.to_hash,
 							:promotion => promotion.to_hash,
-							:badge => badge.to_hash
+							:badge => badge.to_hash,
+							:member => member.to_hash
 						}
 
 	end
@@ -61,29 +73,26 @@ class PromotionController < ApplicationController
 		member = Member.find(params[:member_id])
 		promotion = Promotion.find(params[:id])
 
+		share_record = ShareRecord.get(member, promotion)
+
+	    if !share_record or (Time.now.to_i - share_record.created_date) > (60 * 60)
+	        member.inc(:point, 1)
+	        ShareRecord.safely.create(:member_id => member.id,
+	                                    :promotion_id => promotion.id)
+	    end
+
 		Delayed::Job.enqueue ShareJob.new(promotion.id, member.id, params[:message])
 
-		render :json => { :ok => true }
+		render :json => { :ok => true,
+							:member => member.to_hash }
 
 	end
 
 
-	def transfer
-
-		member = Member.find(params[:member_id])
-		promotion = Promotion.find(params[:id])
-
-		target = Member.create_or_get(params[:target_facebook_id])
-
-		badge = promotion.get_badge(member)
-		badge.member_id = target.member_id
-		badge.save
-
-		Delayed::Job.enqueue ShareTransferJob.new(badge.id, member.id, params[:message])
-
-		render :json => { :ok => true }
-
+	def show
+		@promotion = Promotion.find(params[:id])
 	end
+
 
 
 end

@@ -22,7 +22,7 @@ class Restaurant
             :name => self.name,
             :description => self.description,
             :latitude => self.location[0],
-            :longitude => self.longitude[1],
+            :longitude => self.location[1],
             :telephone_number => self.telephone_number,
             :website => self.website,
             :thumbnail_url => self.get_image_url }

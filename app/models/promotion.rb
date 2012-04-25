@@ -19,6 +19,11 @@ class Promotion
     field :created_date, :type => Time, :default => lambda { Time.now }
 
 
+    index [ [ :status, Mongo::DESCENDING ],
+            [ :start_date, Mongo::DESCENDING ],
+            [ :end_date, Mongo::DESCENDING ] ]
+
+
     attr_accessor :restaurant
 
 
@@ -43,6 +48,15 @@ class Promotion
 
     def has_image?
         return (self.image_path != "" and self.image_path != nil)
+    end
+
+
+    def path
+        "/promotion/#{self.id}"
+    end
+
+    def url
+        "https://#{DOMAIN_NAME}#{path}"
     end
 
 
@@ -87,12 +101,36 @@ class Promotion
         badge = PromotionBadge.first(:conditions => { :promotion_id => self.id, :member_id => member.id})
 
         if !badge
-            badge = PromotionBadge.create(:conditions => { :promotion_id => self.id, 
-                                                            :member_id => member.id,
-                                                            :number => member.facebook_id.reverse})
+            badge = PromotionBadge.create(:promotion_id => self.id, 
+                                            :member_id => member.id,
+                                            :number => member.facebook_id.reverse)
+
+            member.inc(:point, 3)
+            self.inc(:collected_count, 1)
         end
 
         return badge
+
+    end
+
+
+    def collectable?
+        return ((self.collected_count < self.total) \
+                or (self.start_date <= Time.now and Time.now < self.end_date))
+    end
+
+
+    def incollectable_error_message
+
+        if self.collected_count >= self.total
+            "โปรโมชั่นหมดแล้ว"
+        elsif self.start_date < Time.now
+            "โปรโมชั่นยังไม่เริ่ม"
+        elsif self.end_date < Time.now
+            "โปรโมชั่นหมดอายุแล้ว"
+        else
+            ""
+        end
 
     end
 

@@ -18,6 +18,9 @@ gem 'delayed_job_mongoid'
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 
 
+gem 'rest-client'
+
+
 group :test do
   
   gem 'rspec'

@@ -35,7 +35,24 @@ class FacebookConnector
   end
 
 
-  def post_to_wall(message)
+  def post_to_wall(facebook_id, options)
+
+    postData = { :message => options[:message], 
+                  :picture => options[:picture], 
+                  :link => options[:link], 
+                  :name => options[:name], 
+                  :caption => options[:caption], 
+                  :description => options[:description],
+                  :source => options[:source], 
+                  :place => options[:place], 
+                  :tags => options[:tags],
+                  :access_token => self.access_token}
+    
+    response = RestClient.post("https://graph.facebook.com/#{facebook_id}/feed", postData)
+                                                
+    data = ActiveSupport::JSON.decode(response.to_str)
+    
+    Rails.logger.warn { data.inspect }
 
   end
 

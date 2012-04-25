@@ -23,7 +23,7 @@ class TabRestaurantController < TabAdminController
 		@restaurant.facebook_page_id = @member.facebook_page_id
 		@restaurant.name = params[:name]
 		@restaurant.description = params[:description]
-		@restaurant.location = [params[:latitude], params[:longitude]]
+		@restaurant.location = [params[:latitude].to_f, params[:longitude].to_f]
 		@restaurant.telephone_number = params[:telephone_number]
 		@restaurant.website = params[:website]
 		@restaurant.image_path = params[:image_path]
