@@ -13,13 +13,14 @@ class PromotionController < ApplicationController
 	    if Rails.env.development?
 			restaurants = Restaurant.desc(:created_date).entries
 	    else
-	    	restaurants = Restaurant.where(:location.within => { "$box" => [ leftTop, rightBottom ] }).entries
+	    	restaurants = Restaurant.desc(:created_date).entries
+	    	# restaurants = Restaurant.where(:location.within => { "$box" => [ leftTop, rightBottom ] }).entries
 	    end
 
 	    restaurant_hash = {}
 	    restaurants.each { |r| restaurant_hash[r.id] = r }
 
-	    promotions = Promotion.where(:restaurant_id.in => restaurants.map { |r| r.id }).where(:status => "ON").where(:start_date.lte => Time.now.to_date).entries
+	    promotions = Promotion.where(:restaurant_id.in => restaurants.map { |r| r.id }).where(:status => "ON").where(:start_date.lte => Time.now.to_date).where(:end_date.gte => Time.now.to_date).entries
 	    promotions.each { |p| p.restaurant = restaurant_hash[p.restaurant_id] }
 	    promotions = promotions.sort { |a, b| 
 	      

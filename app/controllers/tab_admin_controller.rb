@@ -31,7 +31,7 @@ class TabAdminController < ApplicationController
 	def check_restaurant
 		@restaurant = Restaurant.first(:conditions => { :facebook_page_id => @member.facebook_page_id })
 
-		if !@restaurant
+		if !@restaurant and !(params[:controller] == "tab_restaurant" and params[:action] == "create")
 			@restaurant = Restaurant.new
 			render "tab_restaurant/new"
 			return
