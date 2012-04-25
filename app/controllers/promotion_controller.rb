@@ -76,7 +76,7 @@ class PromotionController < ApplicationController
 
 		share_record = ShareRecord.get(member, promotion)
 
-	    if !share_record or (Time.now.to_i - share_record.created_date) > (60 * 60)
+	    if !share_record or (Time.now - share_record.created_date) > (60 * 60)
 	        member.inc(:point, 1)
 	        ShareRecord.safely.create(:member_id => member.id,
 	                                    :promotion_id => promotion.id)
