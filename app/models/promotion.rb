@@ -31,7 +31,7 @@ class Promotion
         { :id => self.id,
           :name => self.name,
           :description => self.description,
-          :thumbnail_url => self.image_path,
+          :thumbnail_url => self.get_image_url,
           :restaurant_id => self.restaurant_id,
           :start_date => self.start_date,
           :end_date => self.end_date,
