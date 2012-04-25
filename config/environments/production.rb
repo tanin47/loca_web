@@ -67,7 +67,7 @@ LocaWeb::Application.configure do
 end
 
 
-DOMAIN_NAME = "localhost:3000"
+DOMAIN_NAME = "46.137.213.161"
 
 APP_ID = "223148047794034"
 APP_SECRET = "21d7edfeed335b9c05c1f62929aecee9"
