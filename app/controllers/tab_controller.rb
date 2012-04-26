@@ -43,11 +43,15 @@ class TabController < ApplicationController
 
 		expected_signature = OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha256'), APP_SECRET, payload)
 
+		signature = signature.force_encoding('utf-8')
+		expected_signature = expected_signature.force_encoding('utf-8')
+
 		Rails.logger.warn { signature }
 		Rails.logger.warn { expected_signature }
 
 		if signature != expected_signature
-			render :bad_signed_request
+			render :status => 400
+			return
 		end
 
 		session[:facebook_id] = @data["user_id"]

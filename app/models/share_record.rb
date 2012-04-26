@@ -7,7 +7,7 @@ class ShareRecord
     field :created_date, :type => Time, :default => lambda { Time.now.to_i }
 
     def self.get(member, promotion)
-    	return self.first(:conditions => { :member_id => member.id, :promotion_id => promotion.id })
+    	return self.desc(:created_date).where(:member_id => member.id).where(:promotion_id => promotion_id).first
     end
 
 end
