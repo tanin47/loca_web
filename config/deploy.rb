@@ -54,9 +54,9 @@ namespace :assets  do
       }
     end
 
-  task :precompile, :roles => [:app, :web] do
-    run "rake RAILS_ENV=production assets:precompile"
-  end
+    task :precompile, :roles => [:app, :web] do
+      run "cd #{release_path}; rake assets:precompile RAILS_ENV=production"
+    end
 
   end
 end
@@ -104,12 +104,10 @@ end
 
 after "deploy:update_code" do
   bundler.bundle_new_release
-  run "cd #{release_path}; rake assets:precompile RAILS_ENV=production"
-end
-
-after "deploy:symlink" do
+  assets.symlinks.precompile
   assets.symlinks.update
 end
+
 
 
 
