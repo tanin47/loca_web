@@ -1,3 +1,7 @@
+<%= stylesheet_link_tag    "/autocomplete/autocomplete.css" %>
+<%= javascript_include_tag "/autocomplete/autocomplete.js" %>
+<%= javascript_include_tag "/backbone/backbone.js" %>
+<%= javascript_include_tag "/mustache/mustache.js" %>
 <span class="TabPromotionShow">
 	<span class="PromotionBlock">
 		<span class="Image">
@@ -21,32 +25,37 @@
 	</span>
 	<span class="BadgeList">
 		<span class="Filter">
-			<a href="#" onclick="alert('ยังไม่ได้ทำนะจ้ะ :)');">All</a>
-			<a href="#" onclick="alert('อันนี้ยังไม่ได้ทำนะจ้ะ :)');">Unused</a>
-			<a href="#" onclick="alert('อันนี้ยังไม่ได้ทำจ้ะ :)');">Used</a>
+			<span class="All">All</span>
+			<span class="Unused">Unused</span>
+			<span class="Used">Used</span>
+		</span>
+		<span class="SearchPanel">
+			<input type="text" id="badge_search_textbox">
 		</span>
 		<span class="List">
-			<%
-				@badges.each { |badge|
-			%>
-				<span class="Badge <%='Used' if badge.is_used?%>">
-					<span class="Number">
-						<%=badge.number%>
-					</span>
-					<span class="Toolbar">
-						<span class="ToggleUsageButton" data-ref="<%=badge.id%>">
-							Toggle Usage
-						</span>
-					</span>
-				</span>
-			<%
-				}
-			%>
 		</span>
 	</span>
 </span>
+<script id="list_template_unit" type="text/x-mustache-template">
+	<span id="badge_{{cid}}" class="Badge">
+		<span class="Number">
+			{{number}}
+		</span>
+		<span class="Toolbar">
+			<span class="ToggleUsageButton" data-ref="{{cid}}">
+				Toggle Usage
+			</span>
+		</span>
+	</span>
+</script>
 <script type="text/javascript">
 	tab_badge_handler.init_list({
-		usage_buttons: $('.BadgeList .ToggleUsageButton')
+		promotion_id: '<%=@promotion.id%>',
+		list_template_unit: $('#list_template_unit').html(),
+		badge_list_panel: $('.BadgeList .List')[0],
+		all_button: $('.BadgeList .Filter .All')[0],
+		unused_button: $('.BadgeList .Filter .Unused')[0],
+		used_button: $('.BadgeList .Filter .Used')[0],
+		search_textbox: $('.BadgeList .SearchPanel input')[0]		
 	});
 </script>

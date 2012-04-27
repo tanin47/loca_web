@@ -72,7 +72,9 @@ LocaWeb::Application.routes.draw do
   post 'tab_promotion/:id/toggle', :to => "tab_promotion#toggle"
 
 
+  get 'tab_promotion_badge/:promotion_id', :to => "tab_promotion_badge#index"
   post 'tab_promotion_badge/:id/toggle', :to => "tab_promotion_badge#toggle"
+  get 'tab_promotion_badge/:promotion_id/autocomplete', :to => "tab_promotion_badge#autocomplete"
 
   
   resources :tab_restaurant

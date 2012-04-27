@@ -13,6 +13,8 @@ class PromotionBadge
 
 	field :created_date, :type => Time, :default => lambda { Time.now.to_i }
 
+	field :number_keywords, :type => Array, :default => []
+
 
 	index [[ :promotion_id, Mongo::DESCENDING ],
 			[ :member_id, Mongo::DESCENDING ]], :unique => true
@@ -20,6 +22,23 @@ class PromotionBadge
 	index [[ :promotion_id, Mongo::DESCENDING ],
 			[ :number, Mongo::DESCENDING ]], :unique => true
 
+	index [[ :promotion_id, Mongo::DESCENDING ],
+			[ :number_keywords, Mongo::DESCENDING ]]
+
+
+	index [[ :promotion_id, Mongo::DESCENDING ],
+			[ :is_used, Mongo::DESCENDING ],
+			[ :number_keywords, Mongo::DESCENDING ]]
+
+
+	before_save { |record|
+		self.number.strip!
+		self.number_keywords = []
+
+		self.number.length.times { |i|
+			self.number_keywords.push(self.number[0..i])
+		}
+	}
 
 
     def to_hash

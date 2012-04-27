@@ -63,10 +63,22 @@
 		.Filter {
 			text-align: center;
 
-			a {
+			span {
 				display: inline-block;
 				margin-left: 10px;
+
+				cursor: pointer;
 			}
+		}
+
+
+		.SearchPanel {
+			text-align: center;
+
+			input {
+				display: inline-block;
+			}
+
 		}
 
 
